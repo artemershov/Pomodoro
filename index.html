@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" manifest="manifest.cache">
+<head>
+	<meta charset="UTF-8">
+	<title>Pomodoro</title>
+	<link rel="shortcut icon" href="favicon.png">
+	<style>
+		* {margin:0;padding:0;border:0;outline:0}
+		*::selection {background:transparent}
+		html, body {width:100%;height:100%;position:relative;overflow:hidden}
+		body {background:#FF9A74;color:#FFF;font-family:Garamond,'Times New Roman',serif;text-align:center}
+		.wrapper, #stat {position:absolute;left:0;right:0;bottom:0;margin:auto}
+		.wrapper {width:500px;height:250px;top:0}
+		#stat {padding:10px;width:400px;font-size:24px;cursor:pointer}
+		#stat:hover {background:#FEA381}
+		#clock {width:500px;height:200px;position:absolute;top:0;font-size:200px}
+		.minutes, .separator, .seconds {height:200px;width:225px;float:left}
+		.separator {width:50px;line-height:180px}
+		.minutes {text-align:right}
+		.seconds {text-align:left}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div id="clock">
+			<div class="minutes">00</div>
+			<div class="separator">:</div>
+			<div class="seconds">00</div>
+		</div>
+		<div id="stat"></div>
+		<audio src="complete.wav"></audio>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>
