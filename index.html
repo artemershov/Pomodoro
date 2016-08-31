@@ -1,35 +1,186 @@
-<!doctype html>
-<html lang="en" manifest="manifest.cache">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pomodoro</title>
-	<link rel="shortcut icon" href="favicon.png">
-	<style>
-		* {margin:0;padding:0;border:0;outline:0}
-		*::selection {background:transparent}
-		html, body {width:100%;height:100%;position:relative;overflow:hidden}
-		body {background:#FF9A74;color:#FFF;font-family:Garamond,'Times New Roman',serif;text-align:center}
-		.wrapper, #stat {position:absolute;left:0;right:0;bottom:0;margin:auto}
-		.wrapper {width:500px;height:250px;top:0}
-		#stat {padding:10px;width:400px;font-size:24px;cursor:pointer}
-		#stat:hover {background:#FEA381}
-		#clock {width:500px;height:200px;position:absolute;top:0;font-size:200px}
-		.minutes, .separator, .seconds {height:200px;width:225px;float:left}
-		.separator {width:50px;line-height:180px}
-		.minutes {text-align:right}
-		.seconds {text-align:left}
-	</style>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />	
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300">
+
+	<!-- Main -->
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/EaselJS/0.8.0/easeljs.min.js"></script>
+	<script src="main.js"></script>	
 </head>
 <body>
-	<div class="wrapper">
-		<div id="clock">
-			<div class="minutes">00</div>
-			<div class="separator">:</div>
-			<div class="seconds">00</div>
+	<nav class="navbar navbar-default navbar-fixed-bottom slideInUp" role="navigation">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="./"><i class="fa fa-bell"></i> Pomodoro</a>
+					</div>					
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-6">
+					<div class="row">
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+							<div class="clock-stat well well-sm">Pomodoros<span class="hidden-xs"> today</span>: <span class="count">0</span></div>
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+							<button class="clock-btn btn btn-md btn-default">Click</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+					<div class="collapse navbar-collapse navbar-right">
+						<ul class="nav navbar-nav">
+							<li><a data-toggle="modal" href="#about"><i class="fa fa-info-circle"></i><span class="hidden-sm hidden-md"> What is "Pomodoro"?</span></a></li>
+							<li><a data-toggle="modal" href="#settings"><i class="fa fa-cog"></i><span class="hidden-sm hidden-md"> Settings</span></a></li>
+						</ul>
+					</div>					
+				</div>
+			</div>
 		</div>
-		<div id="stat"></div>
-		<audio src="complete.wav"></audio>
+	</nav>
+	
+	<div class="interface clock-html t zoomIn" style="display: none;">
+		<div class="tc">
+			<div class="clock-time"><span class="minutes">00</span> : <span class="seconds">00</span></div>
+		</div>
 	</div>
-	<script src="main.js"></script>
+	<canvas class="interface clock-canvas zoomIn" id="canvas" style="display: none;"></canvas>
+	
+	<div class="modal fade" id="about" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">What is "Pomodoro"?</h4>
+				</div>
+				<div class="modal-body" style="padding: 0;">
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/CT70iCaG0Gs?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="settings" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Settings</h4>
+				</div>
+				<div class="modal-body">
+					<form class="clock-settings">
+						<h3>Time</h3>
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group">
+									<label for="set-pm">Pomodoro length</label>
+									<input type="number" name="set-pm" id="set-pm" class="form-control" min="1" max="999">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group">
+									<label for="set-sb">Short break length</label>
+									<input type="number" name="set-sb" id="set-sb" class="form-control" min="1" max="999">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group">
+									<label for="set-lb">Long break length</label>
+									<input type="number" name="set-lb" id="set-lb" class="form-control" min="1" max="999">
+								</div>
+							</div>
+						</div>
+						<hr>
+					</form>
+					<form class="interface-settings">
+						<h3>Color</h3>
+						<div class="row">
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color01" name="set-color" value="color01">
+								<label for="color01" class="color-label img-rounded" style="background-color: #b24436;"><i class="fa fa-check"></i></label>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color02" name="set-color" value="color02">
+								<label for="color02" class="color-label img-rounded" style="background-color: #996c4c;"><i class="fa fa-check"></i></label>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color03" name="set-color" value="color03">
+								<label for="color03" class="color-label img-rounded" style="background-color: #397360;"><i class="fa fa-check"></i></label>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color04" name="set-color" value="color04">
+								<label for="color04" class="color-label img-rounded" style="background-color: #364459;"><i class="fa fa-check"></i></label>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color05" name="set-color" value="color05">
+								<label for="color05" class="color-label img-rounded" style="background-color: #41364c;"><i class="fa fa-check"></i></label>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<input class="color-radio hidden" type="radio" id="color06" name="set-color" value="color06">
+								<label for="color06" class="color-label img-rounded" style="background-color: #333333;"><i class="fa fa-check"></i></label>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<h3>Notification</h3>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="set-notify" id="set-notify">
+										Notification in browser
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="set-audio" id="set-audio">
+										Sound notification
+									</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<h3>Interface</h3>
+								<div class="radio">
+									<label>
+										<input type="radio" name="set-ui" class="set-ui" value="canvas">
+										Canvas interface
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" name="set-ui" class="set-ui" value="html">
+										HTML interface
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<audio src="complete.wav"></audio>
+
 </body>
 </html>
