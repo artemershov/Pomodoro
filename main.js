@@ -25,7 +25,7 @@
 			notify : false // browser notification
 		}
 	}
-	var param = (Cookies.getJSON('param')) ? Cookies.getJSON('param') : defaultParam;
+	var param = (Cookies.getJSON('Pomodoro_param')) ? Cookies.getJSON('Pomodoro_param') : defaultParam;
 
 // Pomodoro timer ================================================
 	function pomodoroTimer(timerCb,startCb,stopCb,resetCb) {
@@ -351,7 +351,7 @@
 			param.time.pomodoro = parseInt(setPm.val());
 			param.time.longbreak = parseInt(setLb.val());
 			param.time.shortbreak = parseInt(setSb.val());
-			Cookies.set('param', param);
+			Cookies.set('Pomodoro_param', param);
 			I.reset();
 		});
 		uiForm.on('change', function() {
@@ -359,7 +359,7 @@
 			param.gui.color = setColor.parent().find(':checked').val();
 			param.gui.audio = setAudio.prop('checked');
 			param.gui.notify = setNotify.prop('checked');
-			Cookies.set('param', param);
+			Cookies.set('Pomodoro_param', param);
 			initSettings();
 		});
 		
