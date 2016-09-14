@@ -351,7 +351,7 @@
 			param.time.pomodoro = parseInt(setPm.val());
 			param.time.longbreak = parseInt(setLb.val());
 			param.time.shortbreak = parseInt(setSb.val());
-			Cookies.set('Pomodoro_param', param);
+			Cookies.set('Pomodoro_param', param, {expires: 365});
 			I.reset();
 		});
 		uiForm.on('change', function() {
@@ -359,7 +359,7 @@
 			param.gui.color = setColor.parent().find(':checked').val();
 			param.gui.audio = setAudio.prop('checked');
 			param.gui.notify = setNotify.prop('checked');
-			Cookies.set('Pomodoro_param', param);
+			Cookies.set('Pomodoro_param', param, {expires: 365});
 			initSettings();
 		});
 		
