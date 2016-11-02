@@ -9,4 +9,4 @@ Features:
 
 Check out the demo: [Link](http://artemershov.ru/apps/pomodoro/)
 
-![Pomodoro](http://i.imgur.com/ycr2gFz.png)
+![Pomodoro](http://i.imgur.com/GN5y6kn.png)
