@@ -5,8 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pomodoro</title>
-	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />	
-	
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/EaselJS/0.8.0/easeljs.min.js"></script>
-	<script src="main.js"></script>	
+	<script src="main.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-bottom slideInUp" role="navigation">
@@ -34,7 +34,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="./"><i class="fa fa-bell"></i> Pomodoro</a>
-					</div>					
+					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-6">
 					<div class="row">
@@ -49,37 +49,20 @@
 				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav">
-							<li><a data-toggle="modal" href="#about"><i class="fa fa-info-circle"></i><span class="hidden-sm hidden-md"> What is "Pomodoro"?</span></a></li>
 							<li><a data-toggle="modal" href="#settings"><i class="fa fa-cog"></i><span class="hidden-sm hidden-md"> Settings</span></a></li>
 						</ul>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
-	
+
 	<div class="interface clock-html t zoomIn" style="display: none;">
 		<div class="tc">
 			<div class="clock-time"><span class="minutes">00</span> : <span class="seconds">00</span></div>
 		</div>
 	</div>
 	<canvas class="interface clock-canvas zoomIn" id="canvas" style="display: none;"></canvas>
-	
-	<div class="modal fade" id="about" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">What is "Pomodoro"?</h4>
-				</div>
-				<div class="modal-body" style="padding: 0;">
-					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/CT70iCaG0Gs?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="modal fade" id="settings" tabindex="-1">
 		<div class="modal-dialog">
